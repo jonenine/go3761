@@ -11,7 +11,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;性能测试
 -------------------------------------
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性能测试结果还是不错的:<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在windows上似乎很难突破c10k的限制，并发数超过1万是没问题（可以并发连接到到很大），但并发超过1万后性能急剧下降，比如并发1万1千和并发一万的性能差距相当大。应该是操作系统的问题引起的，我用的server2008R2 enterprise。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在windows上似乎很难突破c10k后性能急剧下降的限制，并发数超过1万是没问题（可以并发连接到到很大），但并发超过1万后性能急剧下降，比如并发1万1千和并发一万的性能差距相当大。应该是操作系统的问题引起的，我用的server2008R2 enterprise。
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在linux上性能就好了很多，以下是测试数据
 
