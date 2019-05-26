@@ -5,8 +5,8 @@
 &nbsp;&nbsp;&nbsp;&nbsp;网络层架构
 -----------------------------------------------
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;网络层分为io routine和worker routine，有点类似于netty的网络模型。当accept连接之后就启动一个routine来接收数据，一旦接收到数据，routine退出，同时将handler连同数据（事件）通过channel发给worker进行处理，在一个固定数量的worker group（池）内进行解帧和其他业务处理。处理之后再启动一个新的routine来接收数据。<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;以前采取io routine同时接收数据和处理数据的做法，虽然性能也不错。发现一段时间后golang的后台线程疯狂增加，而采用这种类似于reactor的模式不但提高了性能，也克服了后台线程飞涨的问题。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;网络层分为io goroutine和worker goroutine，有点类似于netty的网络模型。当accept连接之后就启动一个goroutine来接收数据，一旦接收到数据，goroutine退出，同时将handler连同数据（事件）通过channel发给worker进行处理，在一个固定数量的worker group（池）内进行解帧和其他业务处理。处理之后再启动一个新的goroutine来接收数据。<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;以前采取io goroutine同时接收数据和处理数据的做法，虽然性能也不错。发现一段时间后golang的后台线程疯狂增加，而采用这种类似于reactor的模式不但提高了性能，也克服了后台线程飞涨的问题。
 
 &nbsp;&nbsp;&nbsp;&nbsp;性能测试
 -------------------------------------
