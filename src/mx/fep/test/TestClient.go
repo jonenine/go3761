@@ -97,7 +97,8 @@ func TestClient(connNum,writeNum int,serverAddress string){
 			num++
 			conn.SetNoDelay(true)
 			conn.SetKeepAlive(true)
-			conn.SetWriteBuffer(2000)
+			//conn.SetReadBuffer(512)
+			//conn.SetWriteBuffer(512)
 			var c = newClient(conn)
 			clients = append(clients,c)
 		}
@@ -107,7 +108,8 @@ func TestClient(connNum,writeNum int,serverAddress string){
 
 	//作为压测,并发不停的发送writeNum次
 	for i:=0;i<writeNum;i++{
-		writeConcurrent(clients,4);
+		writeConcurrent(clients,2)
+		time.Sleep(2*time.Millisecond)
 	}
 
 
@@ -165,6 +167,6 @@ var f0, _ = byteUtils.HexToSlice(datagramFromBaidu);
 
 
 func main(){
-	runtime.GOMAXPROCS(1)
+	runtime.GOMAXPROCS(2)
 	TestClient(10000,10,"127.0.0.1:18080")
 }
