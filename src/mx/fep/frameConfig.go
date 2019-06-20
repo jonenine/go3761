@@ -226,6 +226,10 @@ func (con *FrameContext) ReadFrame3761() (*Frame3761,error){
 			con.frameItemIndex = 0
 			//清空校验和
 			con.parseFrame.cs = 0
+			/*
+			 * itemConfigInvalidateError不传递出去,使得外层的循环在解析出错的情况下,可以继续调用这个方法
+			 * 直到出现notEnoughReadable为止
+			 */
 		}else{//非notEnoughReadable,出现了意料之外的错误
 			if err!= NotEnoughReadable {
 				fmt.Printf("出现了意外的错误:%s\n",err)
