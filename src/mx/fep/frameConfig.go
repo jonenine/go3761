@@ -153,10 +153,10 @@ var ItemConfigInvalidateError = errors.New("数据项解析错误")
 func (con *FrameContext)ReadItemConfig(ic *ItemConfig,f *Frame3761) error{
 	//取得当前项长度
 	var len = ic.length
-	if len == 0{
+	if len <= 0{
 		len = ic.getLength(f)
 	}
-	if len<=0 {
+	if len <= 0 {
 		fmt.Printf("数据项"+ic.name+"小于等于0\n",len)
 		return ItemConfigInvalidateError
 	}
