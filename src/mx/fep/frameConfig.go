@@ -216,16 +216,16 @@ func (con *FrameContext) ReadFrame3761() (*Frame3761,error){
 	if err!=nil {
 		//如果是验证错误
 		if err == ItemConfigInvalidateError {
+			//如果在非帧头的位置出错,就恢复到曾经认为的帧头的下一个字节重新解析
+			if con.frameItemIndex>0 {
+				con.ResetReadIndex(0)
+			}
+			//错误的部分数据清空
+			con.Discard();
 			//将数据项指到0,下一次继续从帧头进行解析
 			con.frameItemIndex = 0
 			//清空校验和
 			con.parseFrame.cs = 0
-			//如果在非帧头的位置出错,就恢复到曾经认为的帧头的下一个字节重新解析
-			if con.frameItemIndex>0 {
-				con.ResetReadIndex(0)
-				//错误的部分数据清空
-				con.Discard();
-			}
 		}else{//非notEnoughReadable,出现了意料之外的错误
 			if err!= NotEnoughReadable {
 				fmt.Printf("出现了意外的错误:%s\n",err)
